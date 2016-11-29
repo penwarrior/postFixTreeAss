@@ -15,10 +15,7 @@ int main(int argc, char** argv)
     Tree oak (equation);
     string pine = oak.makePostFix(equation);
 
-    for(int i = 0; i < pine.size(); i++)
-    {
-        cout << pine[i];
-    }
+    cout << "POSTFIX! " << pine << endl;
 
 
     return 0;

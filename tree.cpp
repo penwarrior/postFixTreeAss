@@ -23,7 +23,7 @@ bool checkEquation(string equation)
 
     int firstP = 0, secondP = 0;
 
-    for(int i =0; i < equation.size(); ++i)
+    for(unsigned int i = 0; i < equation.size(); ++i)
     {
         if(equation[i] == '(')
         {
@@ -96,6 +96,10 @@ Tree::Node::Node()
     data = '\0';
 }
 
+Tree::Node::~Node()
+{
+
+}
 
 //Tree Shit
 Tree::Node* Tree::getRoot()
@@ -126,28 +130,44 @@ Tree::Tree()
 string Tree::makePostFix(string eq)
 { //makes the checked equation into a postfix string
     //standard postfix notation is spaces
-    string postEq;
+    string postEq, backwards;
     stack<char> pancake;
     int stringNumCounter = 0;
 
+for(unsigned int f =0; f <=  eq.size(); ++f)
+{
+    backwards += eq[eq.size()-f];
 
-    for(int k =0; k< eq.size(); ++k)
+    if(backwards[f] == '(')
+    {
+        backwards[f] = ')';
+    }
+    else if(backwards[f] == ')')
+    {
+        backwards[f] = '(';
+    }
+
+
+}
+cout << "BACKWARDS! " << backwards << endl;
+
+
+
+    for(unsigned int k =0; k< eq.size(); ++k)
     {
         string holdNum;
 
-        for(int h = k; h < eq.size(); ++h)
+        for(unsigned int h = k; h < eq.size(); ++h)
         {
             //k+ length of holdNum after found an operator
             if(!isOperator(eq[h]) && eq[h] != '(' && eq[h] != ')')
             {
                 holdNum += eq[h];
-                cout << "holdNum " << holdNum << endl;
             }
             else
             {
                 if (eq[h] != ')') {
                     pancake.push(eq[h]);
-                    cout << "found operator '" << eq[h] << "', pushing to stack, adding number and space to postfix string" << endl;
                 }
 
                 if (!holdNum.empty()) {
