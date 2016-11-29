@@ -130,77 +130,39 @@ Tree::Tree()
 string Tree::makePostFix(string eq)
 { //makes the checked equation into a postfix string
     //standard postfix notation is spaces
-    string postEq, backwards;
-    stack<char> pancake;
-    int stringNumCounter = 0;
+    stack s;
+    string postfix;
+  for(unsigned int i = 0; i < eq.size(); ++i)
+  {
+    if(isalnum(token))
+      {
+          postfix += token;}
 
-for(unsigned int f =0; f <=  eq.size(); ++f)
-{
-    backwards += eq[eq.size()-f];
-
-    if(backwards[f] == '(')
+    else
+       if(token == '(')
+           push(&s,'(');
+       else
+       {
+         if(token == ')')
+             while((x=pop(&s))!='(')
+             printf("%c",x);
+         else
+         {
+         while(priority(token)< =priority(top(&s)) && !empty(&s))
+             {
+             x=pop(&s);
+             printf("%c",x);
+             }
+         push(&s,token);
+         }
+       }
+  }
+  while(!empty(&s))
     {
-        backwards[f] = ')';
+    x=pop(&s);
+    printf("%c",x);
     }
-    else if(backwards[f] == ')')
-    {
-        backwards[f] = '(';
-    }
-
-
-}
-cout << "BACKWARDS! " << backwards << endl;
-
-
-
-    for(unsigned int k =0; k< eq.size(); ++k)
-    {
-        string holdNum;
-
-        for(unsigned int h = k; h < eq.size(); ++h)
-        {
-            //k+ length of holdNum after found an operator
-            if(!isOperator(eq[h]) && eq[h] != '(' && eq[h] != ')')
-            {
-                holdNum += eq[h];
-            }
-            else
-            {
-                if (eq[h] != ')') {
-                    pancake.push(eq[h]);
-                }
-
-                if (!holdNum.empty()) {
-                    postEq += holdNum + " ";
-                    stringNumCounter++;
-                }
-                break;
-            }
-
-        }
-
-        if(stringNumCounter == 2)
-        {
-            postEq += pancake.top();
-            pancake.pop();
-            stringNumCounter--;
-        }
-
-        if(k == eq.size()-1)
-        {
-            postEq += holdNum + " ";
-            stringNumCounter++;
-        }
-        k += holdNum.size();
-    }
-
-    while(!pancake.empty())
-    {
-        postEq += pancake.top();
-        pancake.pop();
-    }
-
-    return postEq;
+getch();
 }
 
 
