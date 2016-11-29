@@ -1,22 +1,28 @@
-#include <iostream>
 #include "tree.h"
+#include <iostream>
+
+/* I relied upon the C code found here (http://www.c4learn.com/data-structure/c-program-convert-infix-expression-to-postfix-using-stack/)
+ and Stephen Lane-Walsh to translate that C code in order to understand this assignment.  */
 
 int main(int argc, char** argv)
 {
-    printf("Hello, Word\n");
 
-    string equation = "(3+5)-4";
-    if(!checkEquation(equation))
-    {
-        cout << "fuk" << endl;
+    string equation;
+    cout << "what equation would you like to evaluate?: ";
+    cin >> equation;
+
+    if (!checkEquation(equation)) {
+        cout << "Whoopsie!" << endl;
         return 1;
     }
 
-    Tree oak (equation);
+    Tree oak(equation);
     string pine = oak.makePostFix(equation);
 
     cout << "POSTFIX! " << pine << endl;
 
+    oak.fillTree(pine);
+    cout << oak.doMath() << endl;
 
     return 0;
 }

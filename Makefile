@@ -12,6 +12,9 @@ run:
 clean:
 	rm -f program *.o *.d
 
+format:
+	clang-format -i --style=webkit $(SRC)
+
 program: $(OBJ)
 	$(CXX) $(LDFLAGS) -o $@ $^ $(LDLIBS)
 
